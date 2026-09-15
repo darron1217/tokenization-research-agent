@@ -1,0 +1,3 @@
+# Retrieval eval set. Fill with questions and the URL(s) of the document(s) that answer them.
+# - question: "BIS Project Agorá 참여 중앙은행은?"
+#   expected_urls: ["https://www.bis.org/press/p240403.htm"]
