@@ -1,0 +1,45 @@
+services:
+  qdrant:
+    image: qdrant/qdrant:v1.15.4
+    restart: unless-stopped
+    ports:
+      - "127.0.0.1:6333:6333"
+    volumes:
+      - ./data/qdrant:/qdrant/storage
+    healthcheck:
+      test: ["CMD-SHELL", "bash -c ':> /dev/tcp/127.0.0.1/6333' || exit 1"]
+      interval: 10s
+      timeout: 3s
+      retries: 10
+
+  worker: &worker
+    build: .
+    image: tokres:local
+    env_file: .env
+    environment:
+      QDRANT_URL: http://qdrant:6333
+      TOKRES_DATA_DIR: /app/data
+      FASTEMBED_CACHE_PATH: /app/data/models   # persist local embedding models across runs
+    volumes:
+      - ./data:/app/data
+      - ./reports:/app/reports
+      - ./dossiers:/app/dossiers
+      - ./config:/app/config
+    depends_on:
+      qdrant:
+        condition: service_healthy
+    profiles: ["manual"]
+
+  scheduler:
+    <<: *worker
+    profiles: []
+    restart: unless-stopped
+    entrypoint: ["/usr/local/bin/supercronic", "-passthrough-logs", "/app/crontab"]
+
+  mcp:
+    <<: *worker
+    profiles: []
+    restart: unless-stopped
+    entrypoint: ["tokres-mcp", "--transport", "streamable-http", "--host", "0.0.0.0", "--port", "8765"]
+    ports:
+      - "127.0.0.1:8765:8765"

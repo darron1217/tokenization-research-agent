@@ -1,0 +1,7 @@
+# supercronic crontab (TZ=Asia/Seoul set in image). Logs go to container stdout.
+# Daily discovery + brief at 07:00 KST
+0 7 * * * tokres run-daily
+# Light re-poll of T0/T1 feeds in the afternoon (no brief)
+0 15 * * * tokres discover --tiers T0,T1
+# Weekly knowledge maintenance: dossiers + source discovery, Monday 08:00 KST
+0 8 * * 1 tokres dossiers && tokres discover-sources
