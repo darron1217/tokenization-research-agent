@@ -1,0 +1,8 @@
+{
+  "mcpServers": {
+    "tokres": {
+      "command": "uv",
+      "args": ["run", "--project", ".", "tokres-mcp"]
+    }
+  }
+}
