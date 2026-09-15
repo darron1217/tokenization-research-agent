@@ -1,0 +1,154 @@
+# Topic taxonomy, keyword gate, institution dictionary, and discovery queries.
+
+topics:
+  tokenized_securities:   {ko: 토큰증권, en: tokenized securities / STO}
+  tokenized_deposits:     {ko: 예금토큰, en: tokenized deposits}
+  stablecoin:             {ko: 스테이블코인, en: stablecoins}
+  cbdc:                   {ko: CBDC, en: central bank digital currency}
+  tokenized_funds_rwa:    {ko: 토큰화 펀드·RWA, en: tokenized funds / real-world assets}
+  dlt_settlement:         {ko: 분산원장 결제·청산, en: DLT settlement & clearing}
+  custody_infra:          {ko: 디지털자산 수탁·인프라, en: digital asset custody & market infrastructure}
+  regulation_legal:       {ko: 법·규제·가이드라인, en: regulation, legislation, guidance}
+  cross_border:           {ko: 국경간 결제, en: cross-border payments}
+  interoperability:       {ko: 상호운용성·표준, en: interoperability & standards}
+
+# Keyword gate (case-insensitive substring; Korean morphology handled by including common surface forms).
+# weight: contribution to the prior score's keyword_hits component (capped at 10).
+keywords:
+  ko:
+    - {term: 토큰증권, weight: 5}
+    - {term: 토큰 증권, weight: 5}
+    - {term: 조각투자, weight: 3}
+    - {term: 예금토큰, weight: 5}
+    - {term: 예금 토큰, weight: 5}
+    - {term: 토큰화, weight: 4}
+    - {term: 스테이블코인, weight: 3}
+    - {term: 스테이블 코인, weight: 3}
+    - {term: 디지털화폐, weight: 3}
+    - {term: 디지털 화폐, weight: 3}
+    - {term: 분산원장, weight: 4}
+    - {term: 블록체인, weight: 2}
+    - {term: 디지털자산, weight: 2}
+    - {term: 디지털 자산, weight: 2}
+    - {term: 가상자산, weight: 1}
+    - {term: STO, weight: 4}
+    - {term: RWA, weight: 3}
+    - {term: 전자증권, weight: 2}
+    - {term: 프로젝트 한강, weight: 5}
+    - {term: 아고라, weight: 3}
+  en:
+    - {term: tokenized, weight: 5}
+    - {term: tokenised, weight: 5}
+    - {term: tokenization, weight: 5}
+    - {term: tokenisation, weight: 5}
+    - {term: tokenized deposit, weight: 6}
+    - {term: tokenised deposit, weight: 6}
+    - {term: digital asset, weight: 2}
+    - {term: distributed ledger, weight: 4}
+    - {term: DLT, weight: 3}
+    - {term: blockchain, weight: 2}
+    - {term: stablecoin, weight: 3}
+    - {term: CBDC, weight: 3}
+    - {term: digital currency, weight: 2}
+    - {term: security token, weight: 4}
+    - {term: real-world asset, weight: 3}
+    - {term: RWA, weight: 3}
+    - {term: unified ledger, weight: 5}
+    - {term: Project Agor, weight: 5}
+    - {term: Kinexys, weight: 4}
+    - {term: smart contract, weight: 2}
+    - {term: atomic settlement, weight: 4}
+    - {term: T+0, weight: 2}
+
+# Institution dictionary: canonical name → aliases, and prior weight (core=15, other=5).
+institutions:
+  금융위원회:      {aliases: [금융위, FSC, Financial Services Commission], weight: 15, region: KR}
+  금융감독원:      {aliases: [금감원, FSS, Financial Supervisory Service], weight: 15, region: KR}
+  한국은행:        {aliases: [한은, BOK, Bank of Korea], weight: 15, region: KR}
+  한국예탁결제원:  {aliases: [예탁원, 예탁결제원, KSD, Korea Securities Depository], weight: 12, region: KR}
+  한국거래소:      {aliases: [거래소, KRX, Korea Exchange], weight: 8, region: KR}
+  금융투자협회:    {aliases: [금투협, KOFIA], weight: 5, region: KR}
+  BIS:            {aliases: [Bank for International Settlements, 국제결제은행, BIS Innovation Hub], weight: 15, region: GLOBAL}
+  IIF:            {aliases: [Institute of International Finance, 국제금융협회], weight: 10, region: GLOBAL}
+  DTCC:           {aliases: [Depository Trust & Clearing Corporation, Depository Trust and Clearing Corporation], weight: 12, region: US}
+  SEC:            {aliases: [Securities and Exchange Commission, 미국 증권거래위원회, 美 SEC], weight: 15, region: US}
+  FSB:            {aliases: [Financial Stability Board, 금융안정위원회], weight: 12, region: GLOBAL}
+  IOSCO:          {aliases: [International Organization of Securities Commissions, 국제증권감독기구], weight: 12, region: GLOBAL}
+  ISSA:           {aliases: [International Securities Services Association], weight: 8, region: GLOBAL}
+  ECB:            {aliases: [European Central Bank, 유럽중앙은행], weight: 12, region: EU}
+  Federal Reserve: {aliases: [Fed, 연준, 연방준비제도, Federal Reserve Board], weight: 12, region: US}
+  OCC:            {aliases: [Office of the Comptroller of the Currency, 통화감독청], weight: 8, region: US}
+  CFTC:           {aliases: [Commodity Futures Trading Commission], weight: 8, region: US}
+  FCA:            {aliases: [Financial Conduct Authority, 영국 금융감독청], weight: 10, region: UK}
+  HKMA:           {aliases: [Hong Kong Monetary Authority, 홍콩금융관리국], weight: 10, region: HK}
+  MAS:            {aliases: [Monetary Authority of Singapore, 싱가포르통화청], weight: 10, region: SG}
+  JPMorgan:       {aliases: [JP Morgan, J.P. Morgan, Kinexys, Onyx, JPM Coin, JP모건], weight: 8, region: US}
+  Goldman Sachs:  {aliases: [GS DAP, 골드만삭스], weight: 6, region: US}
+  Citi:           {aliases: [Citigroup, Citi Token Services, 씨티], weight: 6, region: US}
+  HSBC:           {aliases: [HSBC Orion], weight: 6, region: UK}
+  UBS:            {aliases: [UBS Tokenize], weight: 6, region: CH}
+  BlackRock:      {aliases: [BUIDL, 블랙록], weight: 8, region: US}
+  Franklin Templeton: {aliases: [BENJI, 프랭클린템플턴], weight: 6, region: US}
+  Euroclear:      {aliases: [유로클리어], weight: 8, region: EU}
+  Clearstream:    {aliases: [D7, 클리어스트림], weight: 8, region: EU}
+  SWIFT:          {aliases: [스위프트], weight: 8, region: GLOBAL}
+  State Street:   {aliases: [스테이트스트리트], weight: 5, region: US}
+  BNY:            {aliases: [BNY Mellon, Bank of New York Mellon], weight: 5, region: US}
+
+# Discovery queries (used by naver_news / google_news adapters).
+discovery_queries_ko:
+  - 토큰증권
+  - 토큰증권 발행
+  - 예금토큰
+  - 예금 토큰화
+  - 자산 토큰화
+  - 토큰화 금융위
+  - 토큰화 한국은행
+  - 예탁결제원 토큰
+  - 예탁결제원 분산원장
+  - 스테이블코인 규제
+  - 원화 스테이블코인
+  - CBDC 한국은행
+  - 프로젝트 한강
+  - 분산원장 결제
+  - RWA 토큰화
+  - 조각투자 제도화
+  - 디지털자산 기본법
+discovery_queries_en:
+  - tokenized deposits
+  - tokenized securities
+  - tokenization BIS
+  - '"Project Agora" BIS'
+  - unified ledger
+  - tokenized fund
+  - tokenized treasury
+  - DTCC tokenization
+  - SEC tokenization
+  - SEC tokenized securities
+  - Kinexys JPMorgan
+  - IIF digital assets
+  - FSB tokenisation
+  - IOSCO tokenisation
+  - Euroclear tokenization
+  - Clearstream D7
+  - SWIFT tokenized
+  - HKMA tokenisation
+  - MAS Project Guardian
+  - ECB DLT settlement
+# GDELT queries: keep short (≥5s per call). Boolean OR groups reduce call count.
+gdelt_queries_en:
+  - '"tokenized deposits" OR "tokenised deposits"'
+  - '"tokenized securities" OR "tokenised securities" OR "security token"'
+  - '"tokenization" AND (BIS OR SEC OR DTCC OR "Financial Stability Board" OR IOSCO)'
+  - '"tokenized fund" OR "tokenized treasury" OR "tokenized money market"'
+  - '"Project Agora" OR "unified ledger" OR Kinexys'
+gdelt_queries_ko:
+  - '토큰증권 OR 예금토큰 OR 조각투자'
+  - '토큰화 AND (금융위 OR 한국은행 OR 예탁결제원)'
+  - '스테이블코인 AND (금융위 OR 한국은행)'
+x_queries:
+  - tokenized deposits
+  - tokenization BIS
+  - "Project Agora"
+  - 토큰증권
+  - 예금토큰

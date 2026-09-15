@@ -1,0 +1,366 @@
+# Source registry. Each entry becomes a SourceAdapter instance.
+# tier: T0 regulator/policy primary · T1 market infra/institution official · T2 major press · T3 analysis/opinion · T4 unverified social
+# type: rss | html_list | json_api | naver_news | google_news | bird_x
+# poll: daily | twice_daily
+# backfill: optional pagination spec for html_list/json_api, or archive_url for RSS-only sources
+
+# ---------------- Korea: T0 ----------------
+- name: fsc_press
+  entity: 금융위원회
+  region: KR
+  tier: T0
+  type: rss
+  url: http://www.fsc.go.kr/about/fsc_bbs_rss/?fid=0111
+  poll: twice_daily
+  backfill:
+    type: html_list
+    url: https://www.fsc.go.kr/no010101?curPage={page}&srchBeginDt={from}&srchEndDt={to}
+    date_format: "%Y-%m-%d"
+    item: "div.board-list-wrap ul li"
+    link: "div.subject a"
+    title: "div.subject a"
+    date: "div.day"
+    stop_on_date_before_from: true
+    max_pages: 400
+
+- name: fsc_press_explain
+  entity: 금융위원회
+  region: KR
+  tier: T0
+  type: rss
+  url: http://www.fsc.go.kr/about/fsc_bbs_rss/?fid=0112
+  poll: daily
+
+- name: fss_press
+  entity: 금융감독원
+  region: KR
+  tier: T0
+  type: html_list
+  url: https://www.fss.or.kr/fss/bbs/B0000188/list.do?menuNo=200218&pageIndex={page}
+  base_url: https://www.fss.or.kr
+  item: "table tbody tr"
+  link: "td.title a, td.subject a, a"
+  title: "td.title a, td.subject a, a"
+  date: "td.date, td:nth-last-child(1)"
+  date_format: "%Y-%m-%d"
+  poll: daily
+  backfill:
+    stop_on_date_before_from: true
+    max_pages: 2500
+
+- name: bok_press
+  entity: 한국은행
+  region: KR
+  tier: T0
+  type: rss
+  url: https://www.bok.or.kr/portal/bbs/B0000552/news.rss?menuNo=200690
+  poll: twice_daily
+
+- name: bok_payment
+  entity: 한국은행
+  region: KR
+  tier: T0
+  type: rss
+  url: https://www.bok.or.kr/portal/bbs/B0000507/news.rss?menuNo=201225
+  poll: daily
+
+- name: bok_issue_note
+  entity: 한국은행
+  region: KR
+  tier: T0
+  type: rss
+  url: https://www.bok.or.kr/portal/bbs/P0002353/news.rss?menuNo=200433
+  poll: daily
+
+- name: bok_governor_speech
+  entity: 한국은행
+  region: KR
+  tier: T0
+  type: rss
+  url: https://www.bok.or.kr/portal/bbs/P0002575/news.rss?menuNo=200041
+  poll: daily
+
+# ---------------- Korea: discovery (T2/T3 via domains.yaml) ----------------
+- name: naver_news
+  entity: null
+  region: KR
+  tier: T2
+  type: naver_news
+  queries_from: topics.discovery_queries_ko
+  poll: daily
+
+# NOTE (2026-09): Google News RSS article links are opaque redirects that can no longer be resolved without a browser,
+# so these are disabled by default. Naver (KR) and GDELT (KR/EN) give direct publisher URLs instead.
+- name: google_news_kr
+  enabled: false
+  entity: null
+  region: KR
+  tier: T2
+  type: google_news
+  hl: ko
+  gl: KR
+  ceid: "KR:ko"
+  queries_from: topics.discovery_queries_ko
+  poll: daily
+
+- name: google_news_en
+  enabled: false
+  entity: null
+  region: GLOBAL
+  tier: T2
+  type: google_news
+  hl: en-US
+  gl: US
+  ceid: "US:en"
+  queries_from: topics.discovery_queries_en
+  poll: daily
+
+- name: gdelt_en
+  entity: null
+  region: GLOBAL
+  tier: T2
+  type: gdelt
+  queries_from: topics.gdelt_queries_en
+  poll: daily
+
+- name: gdelt_kr
+  entity: null
+  region: KR
+  tier: T2
+  type: gdelt
+  sourcelang: korean
+  queries_from: topics.gdelt_queries_ko
+  poll: daily
+
+# ---------------- Global: T0 ----------------
+- name: bis_press
+  entity: BIS
+  region: GLOBAL
+  tier: T0
+  type: rss
+  url: https://www.bis.org/doclist/all_pressrels.rss
+  poll: twice_daily
+
+- name: bis_mgmt_speeches
+  entity: BIS
+  region: GLOBAL
+  tier: T0
+  type: rss
+  url: https://www.bis.org/doclist/mgmtspeeches.rss
+  poll: daily
+
+- name: bis_innovation_hub
+  entity: BIS
+  region: GLOBAL
+  tier: T0
+  type: html_list
+  url: https://www.bis.org/about/innovation-hub/news?page={page}
+  base_url: https://www.bis.org
+  item: "div.card-wrapper"
+  link: "a.card-link"
+  title: ".card-heading"
+  date: ".card-date"
+  date_format: "%d %b %Y"
+  require_date: true
+  page_start: 0
+  poll: daily
+  backfill:
+    stop_on_date_before_from: true
+    max_pages: 10
+
+- name: sec_press
+  entity: SEC
+  region: US
+  tier: T0
+  type: rss
+  url: https://www.sec.gov/news/pressreleases.rss
+  poll: twice_daily
+
+- name: sec_speeches_statements
+  entity: SEC
+  region: US
+  tier: T0
+  type: rss
+  url: https://www.sec.gov/news/speeches-statements.rss
+  poll: daily
+
+- name: fsb_press
+  entity: FSB
+  region: GLOBAL
+  tier: T0
+  type: rss
+  url: https://www.fsb.org/feed/
+  poll: daily
+
+- name: iosco_media
+  entity: IOSCO
+  region: GLOBAL
+  tier: T0
+  type: html_list
+  url: https://www.iosco.org/media_room/?subsection=media_releases&year={year}&page={page}
+  base_url: https://www.iosco.org
+  item: "li:has(a[href*='IOSCONEWS'])"
+  link: "a[href*='IOSCONEWS']"
+  title: "self"
+  title_strip: "\\b\\d{1,2} [A-Z][a-z]{2} 20\\d\\d\\b|View Release"
+  date: "self"
+  date_format: null
+  poll: daily
+  backfill:
+    by_year: true
+    max_pages: 20
+
+- name: ecb_press
+  entity: ECB
+  region: EU
+  tier: T0
+  type: rss
+  url: https://www.ecb.europa.eu/rss/press.html
+  poll: daily
+
+- name: fca_news
+  entity: FCA
+  region: UK
+  tier: T0
+  type: rss
+  url: https://www.fca.org.uk/news/rss.xml
+  poll: daily
+
+- name: cftc_press
+  entity: CFTC
+  region: US
+  tier: T0
+  type: rss
+  url: https://www.cftc.gov/RSS/RSSGP/rssgp.xml
+  poll: daily
+
+- name: occ_news
+  entity: OCC
+  region: US
+  tier: T0
+  type: rss
+  url: https://www.occ.treas.gov/rss/occ_news.xml
+  poll: daily
+
+- name: fed_press
+  entity: Federal Reserve
+  region: US
+  tier: T0
+  type: rss
+  url: https://www.federalreserve.gov/feeds/press_all.xml
+  poll: daily
+
+- name: fed_speeches
+  entity: Federal Reserve
+  region: US
+  tier: T0
+  type: rss
+  url: https://www.federalreserve.gov/feeds/speeches.xml
+  poll: daily
+
+- name: hkma_press
+  entity: HKMA
+  region: HK
+  tier: T0
+  type: json_api
+  url: https://api.hkma.gov.hk/public/press-releases?lang=en&pagesize=50&offset={offset}
+  records_path: result.records
+  fields: {title: title, link: link, date: date}
+  date_format: "%Y-%m-%d"
+  poll: daily
+  backfill:
+    offset_step: 50
+    max_pages: 200
+
+# ---------------- Global: T1 ----------------
+- name: iif_press
+  entity: IIF
+  region: GLOBAL
+  tier: T1
+  type: html_list
+  url: https://www.iif.com/About-Us/Press/lapg-1641/{page}
+  base_url: https://www.iif.com
+  item: "div.article"
+  link: "h4.article--title a"
+  title: "h4.article--title a"
+  date: "span.article--date"
+  date_format: "%B %d, %Y"
+  poll: daily
+  backfill:
+    stop_on_date_before_from: true
+    max_pages: 60
+
+- name: dtcc_press
+  entity: DTCC
+  region: US
+  tier: T1
+  type: html_list
+  url: https://www.dtcc.com/press-releases
+  base_url: https://www.dtcc.com
+  item: "a[href*='/press-releases/20']"
+  link: "self"
+  title: "self"
+  date: null
+  poll: daily
+
+- name: issa_feed
+  entity: ISSA
+  region: GLOBAL
+  tier: T1
+  type: rss
+  url: https://issanet.org/feed/
+  poll: daily
+
+- name: blackrock_ir
+  entity: BlackRock
+  region: US
+  tier: T1
+  type: rss
+  url: https://ir.blackrock.com/rss/pressrelease.aspx
+  poll: daily
+
+- name: franklin_ir
+  entity: Franklin Templeton
+  region: US
+  tier: T1
+  type: rss
+  url: https://investors.franklintempleton.com/rss/pressrelease.aspx
+  poll: daily
+
+- name: statestreet_news
+  entity: State Street
+  region: US
+  tier: T1
+  type: rss
+  url: https://newsroom.statestreet.com/rss/pressrelease.aspx
+  poll: daily
+
+- name: bny_news
+  entity: BNY
+  region: US
+  tier: T1
+  type: rss
+  url: https://www.bny.com/bin/bnymellon/rssFeedGeneratorServlet.report
+  poll: daily
+
+# ---------------- X via bird (optional; tier inherited per account from x_accounts.yaml) ----------------
+- name: x_following
+  entity: null
+  region: GLOBAL
+  tier: T4
+  type: bird_x
+  mode: following
+  limit: 100
+  poll: daily
+  enabled: true
+
+- name: x_search
+  entity: null
+  region: GLOBAL
+  tier: T4
+  type: bird_x
+  mode: search
+  queries_from: topics.x_queries
+  limit: 50
+  poll: daily
+  enabled: true

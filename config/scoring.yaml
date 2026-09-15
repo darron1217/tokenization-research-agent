@@ -1,0 +1,29 @@
+# Deterministic scoring rules. rule_version is stored with each score so scores can be recomputed.
+rule_version: 1
+
+tier_weight: {T0: 30, T1: 20, T2: 10, T3: 5, T4: 2}
+entity_default_weight: 5
+doc_type_weight:
+  regulation: 20
+  guideline: 15
+  press_release: 10
+  report: 8
+  speech: 6
+  news: 3
+  opinion: 1
+  other: 2
+keyword_hits_cap: 10
+corroboration_per_source: 3
+corroboration_cap: 9
+age_penalty_per_day: 2
+age_penalty_cap: 20
+
+# final = prior * (0.5 + materiality/5); novelty=repeat → archive
+priority_thresholds: {must_read: 60, notable: 35, fyi: 15}
+# T0 regulatory_change is always must_read; T0 policy_signal only when the LLM rates materiality >= min_materiality
+must_read_override:
+  tiers: [T0]
+  impact_types: [regulatory_change, policy_signal]
+  min_materiality: {regulatory_change: 1, policy_signal: 4}
+# Unregistered social (T4) with no corroboration cannot exceed this priority
+t4_uncorroborated_cap: fyi

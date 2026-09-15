@@ -1,0 +1,85 @@
+# Domain → tier/entity mapping for items discovered via news APIs. Unlisted domains default to T3.
+# Suffix match on host (e.g. "fsc.go.kr" matches "www.fsc.go.kr").
+domains:
+  # Korea T0/T1
+  fsc.go.kr:        {tier: T0, entity: 금융위원회, region: KR}
+  fss.or.kr:        {tier: T0, entity: 금융감독원, region: KR}
+  bok.or.kr:        {tier: T0, entity: 한국은행, region: KR}
+  ksd.or.kr:        {tier: T1, entity: 한국예탁결제원, region: KR}
+  seibro.or.kr:     {tier: T1, entity: 한국예탁결제원, region: KR}
+  krx.co.kr:        {tier: T1, entity: 한국거래소, region: KR}
+  kofia.or.kr:      {tier: T1, entity: 금융투자협회, region: KR}
+  kfb.or.kr:        {tier: T1, entity: 은행연합회, region: KR}
+  moef.go.kr:       {tier: T0, entity: 기획재정부, region: KR}
+  korea.kr:         {tier: T0, entity: 대한민국 정부, region: KR}
+  # Korea press T2
+  yna.co.kr:        {tier: T2, entity: 연합뉴스, region: KR}
+  yonhapnews.co.kr: {tier: T2, entity: 연합뉴스, region: KR}
+  hankyung.com:     {tier: T2, entity: 한국경제, region: KR}
+  mk.co.kr:         {tier: T2, entity: 매일경제, region: KR}
+  sedaily.com:      {tier: T2, entity: 서울경제, region: KR}
+  edaily.co.kr:     {tier: T2, entity: 이데일리, region: KR}
+  mt.co.kr:         {tier: T2, entity: 머니투데이, region: KR}
+  news1.kr:         {tier: T2, entity: 뉴스1, region: KR}
+  newsis.com:       {tier: T2, entity: 뉴시스, region: KR}
+  chosun.com:       {tier: T2, entity: 조선일보, region: KR}
+  joongang.co.kr:   {tier: T2, entity: 중앙일보, region: KR}
+  donga.com:        {tier: T2, entity: 동아일보, region: KR}
+  fnnews.com:       {tier: T2, entity: 파이낸셜뉴스, region: KR}
+  thebell.co.kr:    {tier: T2, entity: 더벨, region: KR}
+  digitaltoday.co.kr: {tier: T3, entity: 디지털투데이, region: KR}
+  coindeskkorea.com: {tier: T3, entity: 코인데스크코리아, region: KR}
+  blockmedia.co.kr: {tier: T3, entity: 블록미디어, region: KR}
+  kcmi.re.kr:       {tier: T3, entity: 자본시장연구원, region: KR}
+  kif.re.kr:        {tier: T3, entity: 한국금융연구원, region: KR}
+  # Global T0
+  bis.org:          {tier: T0, entity: BIS, region: GLOBAL}
+  sec.gov:          {tier: T0, entity: SEC, region: US}
+  fsb.org:          {tier: T0, entity: FSB, region: GLOBAL}
+  iosco.org:        {tier: T0, entity: IOSCO, region: GLOBAL}
+  imf.org:          {tier: T0, entity: IMF, region: GLOBAL}
+  ecb.europa.eu:    {tier: T0, entity: ECB, region: EU}
+  esma.europa.eu:   {tier: T0, entity: ESMA, region: EU}
+  eba.europa.eu:    {tier: T0, entity: EBA, region: EU}
+  federalreserve.gov: {tier: T0, entity: Federal Reserve, region: US}
+  occ.treas.gov:    {tier: T0, entity: OCC, region: US}
+  cftc.gov:         {tier: T0, entity: CFTC, region: US}
+  treasury.gov:     {tier: T0, entity: US Treasury, region: US}
+  fca.org.uk:       {tier: T0, entity: FCA, region: UK}
+  bankofengland.co.uk: {tier: T0, entity: Bank of England, region: UK}
+  mas.gov.sg:       {tier: T0, entity: MAS, region: SG}
+  hkma.gov.hk:      {tier: T0, entity: HKMA, region: HK}
+  sfc.hk:           {tier: T0, entity: SFC, region: HK}
+  fsa.go.jp:        {tier: T0, entity: JFSA, region: JP}
+  boj.or.jp:        {tier: T0, entity: BOJ, region: JP}
+  # Global T1
+  iif.com:          {tier: T1, entity: IIF, region: GLOBAL}
+  dtcc.com:         {tier: T1, entity: DTCC, region: US}
+  issanet.org:      {tier: T1, entity: ISSA, region: GLOBAL}
+  euroclear.com:    {tier: T1, entity: Euroclear, region: EU}
+  clearstream.com:  {tier: T1, entity: Clearstream, region: EU}
+  swift.com:        {tier: T1, entity: SWIFT, region: GLOBAL}
+  jpmorgan.com:     {tier: T1, entity: JPMorgan, region: US}
+  goldmansachs.com: {tier: T1, entity: Goldman Sachs, region: US}
+  citigroup.com:    {tier: T1, entity: Citi, region: US}
+  citi.com:         {tier: T1, entity: Citi, region: US}
+  hsbc.com:         {tier: T1, entity: HSBC, region: UK}
+  ubs.com:          {tier: T1, entity: UBS, region: CH}
+  blackrock.com:    {tier: T1, entity: BlackRock, region: US}
+  franklintempleton.com: {tier: T1, entity: Franklin Templeton, region: US}
+  statestreet.com:  {tier: T1, entity: State Street, region: US}
+  bny.com:          {tier: T1, entity: BNY, region: US}
+  nasdaq.com:       {tier: T1, entity: Nasdaq, region: US}
+  broadridge.com:   {tier: T1, entity: Broadridge, region: US}
+  fidelity.com:     {tier: T1, entity: Fidelity, region: US}
+  six-group.com:    {tier: T1, entity: SIX, region: CH}
+  # Global press T2
+  reuters.com:      {tier: T2, entity: Reuters, region: GLOBAL}
+  bloomberg.com:    {tier: T2, entity: Bloomberg, region: GLOBAL}
+  ft.com:           {tier: T2, entity: Financial Times, region: GLOBAL}
+  wsj.com:          {tier: T2, entity: WSJ, region: US}
+  ledgerinsights.com: {tier: T2, entity: Ledger Insights, region: GLOBAL}
+  coindesk.com:     {tier: T3, entity: CoinDesk, region: GLOBAL}
+  theblock.co:      {tier: T3, entity: The Block, region: GLOBAL}
+  prnewswire.com:   {tier: T2, entity: PR Newswire, region: GLOBAL}
+  businesswire.com: {tier: T2, entity: Business Wire, region: GLOBAL}

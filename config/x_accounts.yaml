@@ -1,0 +1,23 @@
+# X accounts whose posts inherit the institution's tier. Unlisted accounts are T4.
+# Fill in / confirm handles before enabling the bird adapter in production.
+accounts:
+  - {handle: BIS_org,        entity: BIS,             tier: T0}
+  - {handle: SECGov,         entity: SEC,             tier: T0}
+  - {handle: federalreserve, entity: Federal Reserve, tier: T0}
+  - {handle: ecb,            entity: ECB,             tier: T0}
+  - {handle: TheFCA,         entity: FCA,             tier: T0}
+  - {handle: FinStbBoard,    entity: FSB,             tier: T0}
+  - {handle: IOSCOPress,     entity: IOSCO,           tier: T0}
+  - {handle: hkmagovhk,      entity: HKMA,            tier: T0}
+  - {handle: MAS_sg,         entity: MAS,             tier: T0}
+  - {handle: The_DTCC,       entity: DTCC,            tier: T1}
+  - {handle: IIF,            entity: IIF,             tier: T1}
+  - {handle: Euroclear,      entity: Euroclear,       tier: T1}
+  - {handle: Clearstream,    entity: Clearstream,     tier: T1}
+  - {handle: swiftcommunity, entity: SWIFT,           tier: T1}
+  - {handle: jpmorgan,       entity: JPMorgan,        tier: T1}
+  - {handle: Citi,           entity: Citi,            tier: T1}
+  - {handle: blackrock,      entity: BlackRock,       tier: T1}
+  - {handle: FTI_US,         entity: Franklin Templeton, tier: T1}
+  - {handle: fsc_korea,      entity: 금융위원회,       tier: T0}
+  - {handle: BOK_korea,      entity: 한국은행,         tier: T0}
