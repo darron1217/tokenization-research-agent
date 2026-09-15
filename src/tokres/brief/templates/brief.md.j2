@@ -1,0 +1,34 @@
+# 토큰화 데일리 브리프 — {{ date }}
+
+{% if headline %}## 오늘의 핵심
+{% for h in headline %}- {{ h }}
+{% endfor %}
+{% endif %}
+{% for section in sections %}{% if section.clusters %}
+## {{ section.label }}
+{% for c in section.clusters %}{% set h = c.head %}
+### [{{ h.priority }}] {{ h.title }}
+**{{ h.entity or '-' }}** · {{ h.doc_type or '-' }} · {{ h.tier }} · {{ h.date or '-' }} · [원문]({{ h.url }}) · `#{{ h.id }}`
+
+{{ h.summary }}
+{% if h.key_facts %}
+{% for f in h.key_facts %}- {{ f }}
+{% endfor %}{% endif %}
+{% if h.why_it_matters %}**왜 중요한가:** {{ h.why_it_matters }}
+{% endif %}{% if h.what_changed %}**무엇이 달라졌나:** {{ h.what_changed }}{% if h.updates_item_id %} (이전 문서 `#{{ h.updates_item_id }}`){% endif %}
+{% endif %}{% if h.materiality_reason %}<sub>중요도 {{ h.materiality }}/5 — {{ h.materiality_reason }} · 신뢰도 {{ h.confidence }}</sub>
+{% endif %}{% if c.others %}
+관련 출처: {% for o in c.others %}[{{ o.entity or o.source }} ({{ o.tier }})]({{ o.url }}){% if not loop.last %}, {% endif %}{% endfor %}
+{% endif %}
+{% endfor %}{% endif %}{% endfor %}
+{% if archived %}
+## 참고 (archive, {{ archived|length }}건)
+{% for a in archived %}- [{{ a.title }}]({{ a.url }}) — {{ a.entity or '-' }} · {{ a.tier }} `#{{ a.id }}`
+{% endfor %}{% endif %}
+{% if warnings %}
+## 소스 경고
+{% for w in warnings %}- {{ w }}
+{% endfor %}{% endif %}
+
+---
+<sub>생성: {{ generated_at }} · 항목 평가는 `tokres rate <id> up|down` · rule_version {{ rule_version }}</sub>
