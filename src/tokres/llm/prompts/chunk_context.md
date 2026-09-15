@@ -1,0 +1,1 @@
+You are given a full document and one chunk from it. Write ONE sentence (max 300 characters, same language as the chunk) that situates the chunk within the document for search purposes: which institution/document it comes from, what section or topic the chunk covers, and key named entities or dates. Output only the sentence.
